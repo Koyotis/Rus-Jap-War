@@ -1,0 +1,46 @@
+#include "Warlord.h"
+Warlord::Warlord()
+{
+
+}
+Warlord::Warlord(string nameL, int attackL, int defenceL, int natureL, char sideL) : name{nameL}, attack{attackL}, defence{defenceL},nature{natureL}, side{sideL}
+{
+
+}
+void Warlord::setRandomeName()
+{
+
+}
+void Warlord::setRandomeCharacteristic()
+{
+
+}
+void Warlord::setRandomeNature()
+{
+
+}
+void Warlord::setSide(char side)
+{
+
+}
+
+string Warlord::getName()
+{
+	return name;
+}
+int Warlord::getAttack()
+{
+	return attack;
+}
+int Warlord::getDefence()
+{
+	return defence;
+}
+int Warlord::getNature()
+{
+	return nature;
+}
+char Warlord::getSide()
+{
+	return side;
+}

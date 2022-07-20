@@ -1,0 +1,66 @@
+﻿// R-J war2.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
+//
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <Windows.h>
+#include <typeinfo>
+#include "Army.h"
+#include "Map.h"
+#include "GameLineFuncs.h"
+#include "Territory.h"
+#include "Fortress.h"
+#include <conio.h>
+int main()
+{
+    setlocale(LC_ALL, "rus");
+    using namespace std;
+    
+    const int numberTerritoriesOnMap = 14; // Создание территорий
+    Territory* territorysOnMap = new Territory[numberTerritoriesOnMap];
+    territorysOnMap =  createTerritory();
+    
+    //Cоздание военачальников и армий для России
+    Warlord* rusWarlord = new Warlord[6];
+    rusWarlord[0] = Warlord("0", -1, -1, 0, 'r');   // нулевой военачальник
+    rusWarlord[1] = Warlord("Куропаткин", -1, -1, 0, 'r');
+    
+    Army* russArm = new Army[4]; 
+    russArm[0] = Army("-", 0, rusWarlord[0], 'n');  // Нулевая армия
+    russArm[1] = Army("Дальневосточная дивизия", 45000, rusWarlord[1], 'r');
+    for (int i = 1; i < 14; i++)                    // Обнуление армий во всех регионах
+    {
+        territorysOnMap[i].setArmyBegin(russArm[0]);
+    }
+
+    territorysOnMap[0].setArmy(russArm[1]);         // Создание армий в регионах
+
+    Map map("worldMap.txt");            // Создание карты
+    map.setTerritorys(territorysOnMap); // Создание регионов
+    map.setTerPointer();                // Создание указателя на регионы
+    
+                                        //цикл игры
+    while (true)
+    {
+        system("cls");
+        map.PrintMap();
+        char num = _getch();            // Клавиша для управления войсками и камерой на карте
+
+        num = tolower(num);
+        if (num == 'e')
+            map.nextTerPointer();       // Переключение территорий вперед
+        if (num == 'q')
+            map.backTerPointer();       // Переключение территорий назад
+        
+        if (num == 'r')                 // Поменять армию местами
+            territorysOnMap[map.getNowPounter()].reverseArmy();
+        
+        if (num == 'w' or num == 'a' or num == 'd' or num == 's')   //Передвижение армией
+        {
+            armyGo(territorysOnMap[map.getNowPounter()], territorysOnMap, num, map.pointerTer,russArm[0]);
+            map.setTerPointer();
+        }
+        if (num == 'n') {}
+    }
+
+}

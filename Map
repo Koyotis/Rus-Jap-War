@@ -1,0 +1,34 @@
+#pragma once
+#include <fstream>
+#include "Country.h"
+#include "Territory.h"
+#include "Fortress.h"
+#include "Army.h"
+#include "Navy.h"
+#include <Windows.h>
+#include <string>
+using namespace std;
+class Map
+{
+private:
+	string nameMap;
+	Country countrys[2];
+	Territory* territories;
+	Army* yourArmy;
+	Army* enemyArmy;
+	Navy* navy;
+	Territory pointer;
+
+
+public:
+	int pointerTer = 0;
+	Map(string nameMapL);
+	Map(string nameMapL, Country countrysL[2], Territory* territoriesl);
+	void PrintMap();
+	void setTerritorys(Territory* terr);
+	void setTerPointer();
+	void nextTerPointer();
+	void backTerPointer();
+	int getNowPounter();
+};
+

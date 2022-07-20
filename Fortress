@@ -1,0 +1,15 @@
+#include "Fortress.h"
+#include "Territory.h"
+#include <string>
+#include <iostream>
+using namespace std;
+Fortress::Fortress()
+{
+};
+Fortress::Fortress(string nameL, Territory* pathL, char sideL, char symbolOnMapL)
+{
+	name = nameL;
+	path = pathL;
+	side = sideL;
+	symbolOnMap = symbolOnMapL;
+}

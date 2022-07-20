@@ -1,0 +1,6 @@
+#pragma once
+#include "Territory.h"
+using namespace std;
+Territory* createTerritory();
+
+void armyGo(Territory& first, Territory*& all, char dir, int& pointer, Army zeroArmy);

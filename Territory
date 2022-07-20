@@ -1,0 +1,91 @@
+#include "Territory.h"
+#include <string>
+#include <iostream>
+using namespace std;
+Territory::Territory()
+{
+
+};
+
+Territory::Territory(string nameL, Territory* pathL, char sideL, char symbolOnMapL)
+{
+	name = nameL;
+	path = pathL;
+	side = sideL;
+	symbolOnMap = symbolOnMapL;
+}
+void Territory::setSide(Army sideArmy)
+{
+
+}
+void Territory::setPath(Territory* pathL)
+{
+	path = pathL;
+}
+
+
+void Territory::setArmy(Army arm)
+{
+	if (yourArmy[0].getNumberSoldiers() == 0)
+		yourArmy[0] = arm;
+	else if (yourArmy[1].getNumberSoldiers() == 0)
+		yourArmy[1] = arm;
+	else
+	{
+		cout << "Îøèáêà!" << getName();
+	}
+}
+void Territory::setArmyBegin(Army arm)
+{
+	yourArmy[0] = arm;
+	yourArmy[1] = arm;
+}
+void Territory::setLostArmy(Army arm)
+{
+	yourArmy[0] = arm;
+}
+string Territory::getArmyName(int numberArmy)
+{
+	return yourArmy[numberArmy].getName();
+}
+string Territory::getWarlordsArmyName(int numberArmy)
+{
+	return yourArmy[numberArmy].getNameWarlord();
+}
+int Territory::getNumberSoldier(int numberArmy)
+{
+	return yourArmy[numberArmy].getNumberSoldiers();
+}
+void Territory::reverseArmy()
+{
+	Army temp;
+	temp = yourArmy[0];
+	yourArmy[0] = yourArmy[1];
+	yourArmy[1] = temp;
+}
+Army Territory::getArmy(int numberArmy)
+{
+	return yourArmy[numberArmy];
+}
+
+
+string Territory::getName()
+{
+	return name;
+}
+string Territory::getNamePath(int number)
+{
+	return (path[number].getName());
+}
+void Territory::getAllPath()
+{
+
+}
+char Territory::getSide()
+{
+	return side;
+}
+char Territory::getSymbolOnMap()
+{
+	return symbolOnMap;
+}

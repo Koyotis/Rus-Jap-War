@@ -1,0 +1,381 @@
+#include "Map.h"
+#include <fstream>
+#include "Country.h"
+#include "Territory.h"
+#include "Fortress.h"
+#include "Army.h"
+#include "Navy.h"
+#include <iostream>
+#include <Windows.h>
+#include <typeinfo>
+using namespace std;
+enum ConsoleColor
+{
+    Black = 0,
+    Blue = 1,
+    Green = 2,
+    Cyan = 3,
+    Red = 4,
+    Magenta = 5,
+    Brown = 6,
+    LightGray = 7,
+    DarkGray = 8,
+    LightBlue = 9,
+    LightGreen = 10,
+    LightCyan = 11,
+    LightRed = 12,
+    LightMagenta = 13,
+    Yellow = 14,
+    White = 15
+};
+HANDLE hConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+void SetColor(ConsoleColor text, ConsoleColor background)
+{
+    SetConsoleTextAttribute(hConsoleHandle, (WORD)((background << 4) | text));
+}
+
+Map::Map(string nameMapL)
+{
+    nameMap = nameMapL;
+}
+Map::Map(string nameMapL, Country countrysL[2], Territory* territoriesl)
+{
+
+}
+void Map::PrintMap()
+{
+    int numberOfString = 0;             // Координаты для рисования табличек
+    const int widthTable = 50;
+    const int heightTable = 30;
+
+    string tempSizeString;              // Переменная считывания строки
+    char charDrawMap = ' ';             // Переменная для считывания карты 
+    int sizeStringMap;                  // Переменная для хранения размера строки
+
+    ifstream file(nameMap);
+    file >> tempSizeString;
+    sizeStringMap = tempSizeString.size();  // Узнаем размер строки для того,
+                                            // чтобы знать, через какое кол-во символов переходить на след. строку
+    int countDrawString = 0;                // Счетчик для подсчитывания выведенных символов
+    SetColor(White, Blue);
+   
+    while (!file.eof())
+    {
+        file >> charDrawMap;
+        countDrawString++;
+        if (!(countDrawString % sizeStringMap - 1))     // Переход на следующую строку и рисование таблички справа
+        {
+            SetColor(White, Black);
+            if (numberOfString == 1) // Рисование верхней границы таблички
+            {
+                cout << "\t" << ' ';
+                int count = 0;
+                while (count < widthTable)
+                {
+                    cout << "=";
+                    count++;
+                }
+            }
+            if (numberOfString > 1 and numberOfString < heightTable) // Рисование центральной части таблицы
+            {
+                string noWay = "-"; //Нет пути, переменная для вывода в направлениях
+                int positionInString = 0;
+                cout << "\t" << '|';
+                if (numberOfString == 2)        // Рисование название провинции
+                {
+                    for (int i = 0; i < widthTable / 3; i++)
+                    {
+                        cout << " ";
+                        positionInString++;
+                    }
+                    string name = pointer.getName();
+                    cout << name;
+                    positionInString += name.size();
+                    while (positionInString < widthTable)
+                    {
+                        cout << ' ';
+                        positionInString++;
+                    }
+                    cout << '|';
+                }
+                else if (numberOfString == 4)        // Рисование контроля
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        cout << " ";
+                        positionInString++;
+                    }
+                    string tempLine = "Провинция под контролем ";
+                    char tempChar = pointer.getSide();
+                    string tempLineCountry;
+                    if (tempChar == 'r')
+                        tempLineCountry = "России";
+                    if (tempChar == 'j')
+                        tempLineCountry = "Японии";
+                    if (tempChar == 'n')
+                        tempLineCountry = "нейтрального Китая";
+                    cout << tempLine << tempLineCountry;
+                    positionInString += tempLine.size() + tempLineCountry.size();
+                    while (positionInString < widthTable)
+                    {
+                        cout << ' ';
+                        positionInString++;
+                    }
+                    cout << '|';
+                }
+                // Прорисовка возможных путей из региона в табличке
+                else if (numberOfString == 6)
+                {
+                    string tempRegion = "\'w\' Регион к северу - ";                 // Первая переменная для вывода на экран
+                    string tempNameRegion = territories[pointerTer].getNamePath(0); // Переменная для названия пути в направлении
+                    
+                    if (tempNameRegion == "")       // Если пути нет, то выводится надпись
+                        tempNameRegion = noWay;
+                    
+                    cout <<  tempRegion << tempNameRegion;                          // Вывод на экран
+                    
+                    positionInString += tempRegion.size() + tempNameRegion.size();  // Подсчитывание символов в надписях
+                    while (positionInString < widthTable)                           // Рисует пустые места до тех пор, пока не кончится табличка
+                    {
+                        cout << ' ';
+                        positionInString++;
+                    }
+                    cout << '|';
+                }
+                else if (numberOfString == 7)
+                {
+                    string tempRegion = "\'a\' Регион к западу - ";
+                    string tempNameRegion = territories[pointerTer].getNamePath(1);
+                   
+                    if (tempNameRegion == "")
+                        tempNameRegion = noWay;
+
+                    cout << tempRegion << tempNameRegion;
+                    positionInString += tempRegion.size() + tempNameRegion.size();
+                    while (positionInString < widthTable)
+                    {
+                        cout << ' ';
+                        positionInString++;
+                    }
+                    cout << '|';
+                }
+                else if (numberOfString == 8)
+                {
+                    string tempRegion = "\'d\' Регион к востоку - ";
+                    string tempNameRegion = territories[pointerTer].getNamePath(2);
+                    
+                    if (tempNameRegion == "")
+                        tempNameRegion = noWay;
+
+                    cout << tempRegion << tempNameRegion;
+                    positionInString += tempRegion.size() + tempNameRegion.size();
+                    while (positionInString < widthTable)
+                    {
+                        cout << ' ';
+                        positionInString++;
+                    }
+                    cout << '|';
+                }
+                else if (numberOfString == 9)
+                {
+                    string tempRegion = "\'s\' Регион к югу - ";
+                    string tempNameRegion = territories[pointerTer].getNamePath(3);
+                    
+                    if (tempNameRegion == "")       
+                        tempNameRegion = noWay;
+                    
+                    cout << tempRegion << tempNameRegion;
+
+                    positionInString += tempRegion.size() + tempNameRegion.size();
+                    while (positionInString < widthTable)
+                    {
+                        cout << ' ';
+                        positionInString++;
+                    }
+                    cout << '|';
+                }
+                // Рисование армий (своих)
+                else if (numberOfString == 11)  // Рисовка подзаголовка армий
+                {
+                    string tempText = "Ваши армии:";
+                    cout << tempText;
+                    positionInString += tempText.size();
+                    while (positionInString < widthTable)
+                    {
+                        cout << ' ';
+                        positionInString++;
+                    }
+                cout << '|';
+                }
+                else if (numberOfString == 12)
+                { 
+                    string tempText = "Армия 1 - ";
+                    string tempName = territories[pointerTer].getArmyName(0);
+                    cout << tempText << tempName;
+                    positionInString += tempText.size() + tempName.size();
+                    while (positionInString < widthTable)
+                    {
+                        cout << ' ';
+                        positionInString++;
+                    }
+                    cout << '|';
+                }
+                else if (numberOfString == 13)
+                {
+                    string tempText = "\tГлавнокомандующий -  ";
+                    string tempName = territories[pointerTer].getWarlordsArmyName(0);
+                    cout << tempText << tempName;
+                    positionInString += tempText.size() + tempName.size();
+                    while (positionInString < widthTable-6) // -6 - табуляция в строке
+                    {
+                        cout << ' ';
+                        positionInString++;
+                    }
+                cout << '|';
+                }
+                else if (numberOfString == 14)
+                {
+                string tempText = "\tЧисленность -  ";
+                string tempName = to_string(territories[pointerTer].getNumberSoldier(0));
+                string tempTextEnd = " штыков";
+                cout << tempText << tempName << tempTextEnd;
+                positionInString += tempText.size() + tempName.size() + tempTextEnd.size();
+                while (positionInString < widthTable - 6)
+                {
+                    cout << ' ';
+                    positionInString++;
+                }
+                cout << '|';
+                }
+                else if (numberOfString == 15)
+                {
+                string tempText = "Армия 2 - ";
+                string tempName = territories[pointerTer].getArmyName(1);
+                cout << tempText << tempName;
+                positionInString += tempText.size() + tempName.size();
+                while (positionInString < widthTable)
+                {
+                    cout << ' ';
+                    positionInString++;
+                }
+                cout << '|';
+                }
+                else if (numberOfString == 16)
+                {
+                string tempText = "\tГлавнокомандующий -  ";
+                string tempName = territories[pointerTer].getWarlordsArmyName(1);
+                cout << tempText << tempName;
+                positionInString += tempText.size() + tempName.size();
+                while (positionInString < widthTable - 6) // -6 - табуляция в строке
+                {
+                    cout << ' ';
+                    positionInString++;
+                }
+                cout << '|';
+                }
+                else if (numberOfString == 17)
+                {
+                string tempText = "\tЧисленность -  ";
+                string tempName = to_string(territories[pointerTer].getNumberSoldier(1));
+                string tempTextEnd = " штыков";
+                cout << tempText << tempName << tempTextEnd;
+                positionInString += tempText.size() + tempName.size() + tempTextEnd.size();
+                while (positionInString < widthTable - 6)
+                {
+                    cout << ' ';
+                    positionInString++;
+                }
+                cout << '|';
+                }
+                else                       // Рисование пустых строк в табличке
+                {
+                    while (positionInString < widthTable)
+                    {
+                        cout << ' ';
+                        positionInString++;
+                    }
+                    cout << '|';
+                }
+            }
+            if (numberOfString == heightTable)  // Рисование нижней границы таблички
+            {
+                cout << "\t" << ' ';
+                int count = 0;
+                while (count < widthTable)
+                {
+                    cout << "=";
+                    count++;
+                }
+            }
+            cout << endl;
+            numberOfString++;
+        }
+        
+        
+        if (charDrawMap == '_')                         // Рисование моря
+            SetColor(Blue, Blue);
+        else if (charDrawMap == '*')                    // Рисование ничейных земель
+        {
+            SetColor(Brown, Brown);
+        }
+        else
+            SetColor(White, Black);                     // Как правило рисование названий и дорог
+
+        for (int i = 0; i < 14; i++)   // Рисование территорий    //////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Заменить магическое число!!!!
+        {
+            char territoriesSymbol = territories[i].getSymbolOnMap();
+            if (territoriesSymbol == charDrawMap)
+            {
+                 char TerritoriesControl = territories[i].getSide();
+                 if (TerritoriesControl == 'r')
+                    SetColor(Green, Green);
+                 if (TerritoriesControl == 'j')
+                    SetColor(Red, Red);
+                 if (TerritoriesControl == 'n')
+                    SetColor(LightGray, LightGray);
+            }
+
+            
+        }
+        if (charDrawMap =='О')                // Рисование городов
+            SetColor(LightRed, LightRed);
+        if (charDrawMap == '+')               // Рисование морских точек
+            SetColor(LightBlue,LightBlue);
+        cout << charDrawMap;    
+    }
+    
+    SetColor(White, Black);
+    file.close();
+
+    cout << endl;
+}
+
+void Map::setTerritorys(Territory* terr)
+{
+    territories = terr;
+}
+void Map::setTerPointer()
+{
+    pointer = territories[pointerTer];
+}
+void Map::nextTerPointer()
+{
+    if (pointerTer==13)
+        pointerTer=0;
+    else
+        pointerTer++;
+    setTerPointer();
+
+}
+void Map::backTerPointer()
+{
+    if (pointerTer == 0)
+        pointerTer = 13;
+    else
+        pointerTer--;
+    setTerPointer();
+}
+int Map::getNowPounter()
+{
+    return pointerTer;
+}

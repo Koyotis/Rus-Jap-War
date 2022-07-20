@@ -1,0 +1,110 @@
+#include <iostream>
+#include <string>
+#include "Territory.h"
+#include "Fortress.h"
+using namespace std;
+
+Territory* createTerritory()
+{
+	static const int numberTerritory = 14;
+	Territory* terr = new Territory[numberTerritory];	// Пути, куда может двигаться с каждой территории
+	Territory* path0 = new Territory[4];	// Владивосток
+	Territory* path1 = new Territory[4];	// Порт Артур
+	Territory* path2 = new Territory[4];	// Сахалин
+	Territory* path3 = new Territory[4];	// Уссурийск
+	Territory* path4 = new Territory[4];	// Транссиб
+	Territory* path5 = new Territory[4];	// Хоккайдо 
+	Territory* path6 = new Territory[4];	// Пусан
+	Territory* path7 = new Territory[4];	// Сеул
+	Territory* path8 = new Territory[4];	// Пхеньян
+	Territory* path9 = new Territory[4];	// Токио
+	Territory* path10 = new Territory[4];	// Мукден
+	Territory* path11 = new Territory[4];	// Лояон
+	Territory* path12 = new Territory[4];	//Кёнсон
+	Territory* path13 = new Territory[4];	// Гирин
+	
+
+	terr[0] = Territory("Владивосток", path0, 'r', '1');
+	terr[1] = Fortress("Порт-Артур", path1, 'r', '2');
+	terr[2] = Territory("Сахалин", path2, 'r', '3');
+	terr[3] = Territory("Уссурийск", path3, 'r', '4');
+	terr[4] = Territory("Транссиб", path4, 'r', '5');
+	terr[5] = Territory("Хоккайдо", path5, 'j', '6');
+	terr[6] = Territory("Пусан", path6, 'j', '7');
+	terr[7] = Territory("Сеул", path7, 'j', '8');
+	terr[8] = Territory("Пхеньян", path8, 'j', '9');
+	terr[9] = Fortress("Конт. Япония", path9, 'j', '0');
+	terr[10] = Territory("Мукден", path10, 'n', 'k');
+	terr[11] = Territory("Ляоян", path11, 'n', 'l');
+	terr[12] = Territory("Кёнсон", path12, 'n', 'c');
+	terr[13] = Territory("Гирин", path13, 'n', 'g');
+	// Владивосток
+	path0[0] = terr[3];		// Север	до Уссурийска
+	path0[1] = terr[12];	// Запад	до Кёнсона
+	// Порт Артур
+	path1[0] = terr[11];	// До Ляояна
+	// Сахалин
+	path2[1] = terr[3];		//До Уссурийска 
+	path2[3] = terr[5];		//До Хоккайдо
+	// Уссурийск
+	path3[0] = terr[4];		// До Транссиба
+	path3[1] = terr[13];	// До Гирина
+	path3[2] = terr[2];		// До Сахалина
+	path3[3] = terr[0];		// До Владивостока
+	// Транссиб
+	path4[2] = terr[3]; // До Уссурийска
+	// Хоккайдо 
+	path5[0] = terr[2]; // до Сахалина
+	path5[3] = terr[9]; //до Токио
+	// Пусан
+	path6[1] = terr[7];	// Сеул
+	path6[2] = terr[9]; // Токио
+	// Сеул
+	path7[0] = terr[8];	// Пхеньянь
+	path7[2] = terr[7]; // Сеул
+	// Пхеньян
+	path8[0] = terr[12]; //Кёнсон
+	path8[1] = terr[11]; //Ляоян
+	path8[3] = terr[7];	//Сеул	
+	// Токио
+	path9[0] = terr[5]; // Хоккайдо
+	path9[1] = terr[6]; // Пусан
+	// Мукден
+	path10[0] = terr[13];	// Гирин
+	path10[2] = terr[12];	// Кёнсон
+	path10[3] = terr[11];	// Ляоян
+	// Лояон
+	path11[0] = terr[10];	// Мукден
+	path11[2] = terr[8];	// Пхеньян
+	path11[3] = terr[1];	// Порт-Артур
+	//Кёнсон
+	path12[0] = terr[0];	// Владивосток
+	path12[1] = terr[10];	// Мукден
+	path12[3] = terr[8];	// Пхеньян
+	// Гирин
+	path13[2] = terr[3]; // Уссурийск
+	path13[3] = terr[10]; //Мукден
+	return terr;
+}
+void armyGo(Territory& first, Territory*& all, char dir, int& pointer, Army zeroArmy)
+{
+	int numberDir;
+	if (dir == 'w')
+		numberDir = 0;
+	if (dir == 'a')
+		numberDir = 1;
+	if (dir == 'd')
+		numberDir = 2;
+	if (dir == 's')
+		numberDir = 3;
+	Army tempArmy = first.getArmy(0);
+	Territory tempTer = first.path[numberDir];
+
+	for (int i = 0; i < 14; i++)
+	{
+		if (tempTer.getName() == all[i].getName())
+			pointer = i;
+	}
+	all[pointer].setArmy(tempArmy);
+	first.setLostArmy(zeroArmy);
+}

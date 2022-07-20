@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Исходные файлы\Объекты на карте">
+      <UniqueIdentifier>{e1a2471c-7cfa-44b3-9b61-e13cdf66f64b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Объекты поля боя">
+      <UniqueIdentifier>{80291720-78ac-4631-b01d-7fcdf817321b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Объекты на карте">
+      <UniqueIdentifier>{01a04f44-6fa2-494b-a826-d426b522769c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Объекты поля боя">
+      <UniqueIdentifier>{f3d4c4b1-ee96-4ee1-8148-a26e9bc8e40a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="R-J war2.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="GAME.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Country.cpp">
+      <Filter>Исходные файлы\Объекты на карте</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Исходные файлы\Объекты на карте</Filter>
+    </ClCompile>
+    <ClCompile Include="Territory.cpp">
+      <Filter>Исходные файлы\Объекты на карте</Filter>
+    </ClCompile>
+    <ClCompile Include="Fortress.cpp">
+      <Filter>Исходные файлы\Объекты на карте</Filter>
+    </ClCompile>
+    <ClCompile Include="Army.cpp">
+      <Filter>Исходные файлы\Объекты на карте</Filter>
+    </ClCompile>
+    <ClCompile Include="Navy.cpp">
+      <Filter>Исходные файлы\Объекты на карте</Filter>
+    </ClCompile>
+    <ClCompile Include="Brigade.cpp">
+      <Filter>Исходные файлы\Объекты поля боя</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleSeaMap.cpp">
+      <Filter>Исходные файлы\Объекты поля боя</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleMap.cpp">
+      <Filter>Исходные файлы\Объекты поля боя</Filter>
+    </ClCompile>
+    <ClCompile Include="PointBattle.cpp">
+      <Filter>Исходные файлы\Объекты поля боя</Filter>
+    </ClCompile>
+    <ClCompile Include="PointSeaBattle.cpp">
+      <Filter>Исходные файлы\Объекты поля боя</Filter>
+    </ClCompile>
+    <ClCompile Include="Warship.cpp">
+      <Filter>Исходные файлы\Объекты поля боя</Filter>
+    </ClCompile>
+    <ClCompile Include="Warlord.cpp">
+      <Filter>Исходные файлы\Объекты поля боя</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLineFuncs.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="worldMap.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="mainMenu.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GAME.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Army.h">
+      <Filter>Файлы заголовков\Объекты на карте</Filter>
+    </ClInclude>
+    <ClInclude Include="Country.h">
+      <Filter>Файлы заголовков\Объекты на карте</Filter>
+    </ClInclude>
+    <ClInclude Include="Fortress.h">
+      <Filter>Файлы заголовков\Объекты на карте</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Файлы заголовков\Объекты на карте</Filter>
+    </ClInclude>
+    <ClInclude Include="Navy.h">
+      <Filter>Файлы заголовков\Объекты на карте</Filter>
+    </ClInclude>
+    <ClInclude Include="Territory.h">
+      <Filter>Файлы заголовков\Объекты на карте</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleMap.h">
+      <Filter>Файлы заголовков\Объекты поля боя</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleSeaMap.h">
+      <Filter>Файлы заголовков\Объекты поля боя</Filter>
+    </ClInclude>
+    <ClInclude Include="Brigade.h">
+      <Filter>Файлы заголовков\Объекты поля боя</Filter>
+    </ClInclude>
+    <ClInclude Include="PointBattle.h">
+      <Filter>Файлы заголовков\Объекты поля боя</Filter>
+    </ClInclude>
+    <ClInclude Include="PointSeaBattle.h">
+      <Filter>Файлы заголовков\Объекты поля боя</Filter>
+    </ClInclude>
+    <ClInclude Include="Warship.h">
+      <Filter>Файлы заголовков\Объекты поля боя</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLineFuncs.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Warlord.h">
+      <Filter>Файлы заголовков\Объекты поля боя</Filter>
+    </ClInclude>
+    <ClInclude Include="allNeedClases.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

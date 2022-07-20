@@ -1,0 +1,60 @@
+#include "Army.h"
+#include <string>
+#include <iostream>
+using namespace std;
+
+Army::Army()
+{
+
+}
+Army::Army(string nameL, int soldiersL, Warlord warlordL , char sideL)
+{
+	name = nameL;
+	numberOfSoldiesr = soldiersL;
+	warlord = warlordL;
+	side = sideL;
+}
+Army::~Army()
+{};
+string Army::getName()
+{
+	return name;
+}
+int Army::getNumberSoldiers()
+{
+	return numberOfSoldiesr;
+}
+string Army::getNameWarlord()
+{
+	return warlord.getName();
+}
+string Army::getCharectericticWarlords()
+{
+	string attack = to_string(warlord.getAttack());
+	string defence = to_string(warlord.getDefence());
+	string stroka = "Атака - " + attack + ". Защита - " + defence;
+	return stroka;
+}
+
+void Army::setNewNumbersSoldier(int soldier)
+{
+	numberOfSoldiesr = soldier;
+}
+void Army::setNewWarlord(Warlord warlrd)
+{
+	warlord = warlrd;
+}
+
+void Army::startBattle()
+{
+
+}
+void Army::startSiege()
+{
+
+}
+
+void Army::firedWarlord()
+{
+
+}

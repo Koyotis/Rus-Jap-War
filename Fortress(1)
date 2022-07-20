@@ -1,0 +1,11 @@
+#pragma once
+#include "Territory.h"
+class Fortress :
+    public Territory
+{
+public:
+	Fortress();
+    Fortress(string nameL, Territory* pathL, char sideL, char symbolOnMapL);
+	string getName();
+};
+

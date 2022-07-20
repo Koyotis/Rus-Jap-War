@@ -1,0 +1,37 @@
+#pragma once
+#include <fstream>
+#include <string>
+#include "Army.h"
+using namespace std;
+
+class Territory
+{
+protected:
+	string name;
+
+	char side;
+	char symbolOnMap;
+	Army yourArmy[2];
+	Army enemyArmy[2];
+public:
+	Territory* path;
+	Territory();
+	Territory(string nameL, Territory* pathL, char sideL, char symbolOnMapL);
+	void setPath(Territory* path);
+	void setSide(Army sideArmy);
+	//Армейские функции
+	void setArmy(Army arm);
+	void setArmyBegin(Army arm);
+	void setLostArmy(Army arm);
+	string getArmyName(int numberArmy);
+	string getWarlordsArmyName(int numberArmy);
+	int getNumberSoldier(int numberArmy);
+	void reverseArmy();
+	Army getArmy(int numberArmy);
+	string getName();
+	string getNamePath(int number);
+	void getAllPath();
+	char getSide();
+	char getSymbolOnMap();
+};
+
